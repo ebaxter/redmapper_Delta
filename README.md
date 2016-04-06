@@ -7,3 +7,5 @@ Questions:
 2.  Simple grid?  Spline on grid?  Ungridded spline?
 
 3.  What grid to use?
+
+4.  What output format?
