@@ -6,13 +6,24 @@ import compute_Delta as cd
 #Redmapper members
 redmapmemdir = '/data/ebaxter/redmapper_data/v5.10/'
 redmapmemfile = 'dr8_run_redmapper_v5.10_lgt5_catalog_members.fit'
+#redmapmemdir = '/data/ebaxter/redmapper_data/v6.3.1/'
+#redmapmemfile = 'dr8_run_redmapper_v6.3.1_lgt5_catalog_members.fit'
+
+/data/ebaxter/redmapper_data/v5.10/dr8_run_redmapper_v5.10_lgt5_catalog_members.fit
+
+dr8_run_redmapper_v5.10_lgt5_catalog.fit
 
 #Redmapper data
 redmapdir = '/data/ebaxter/redmapper_data/v5.10/'
 redmapfile = 'dr8_run_redmapper_v5.10_lgt5_catalog.fit'
+#redmapdir = '/data/ebaxter/redmapper_data/v6.3.1/'
+#redmapfile = 'dr8_run_redmapper_v6.3.1_lgt5_catalog.fit'
 
-#Compute relevant quantities 
-Delta_data = cd.compute_Delta(redmapdir + redmapfile, redmapmemdir + redmapmemfile)
+#Compute relevant quantities
+output_file = './output/test_Delta_out.fits'
+num_lam_bins = 12
+num_z_bins = 5
+Delta_data = cd.compute_Delta(redmapdir + redmapfile, redmapmemdir + redmapmemfile, output_file, num_lam_bins, num_z_bins)
 lam_clusters = Delta_data['lambda']
 z_clusters = Delta_data['z']
 meanr_clusters = Delta_data['meanr']
@@ -64,7 +75,17 @@ ax2[2].set_xlabel(r'$\lambda$')
 ax2[2].set_ylabel(r'$\Delta$')
 fig2.tight_layout()
 
-fig1.savefig('z_vs_lambda.png')
-fig2.savefig('Delta_vs_lambda.png')
+#fig1.savefig('z_vs_lambda.png')
+#fig2.savefig('Delta_vs_lambda.png')
+
+ra_clusters = Delta_data['ra']
+dec_clusters = Delta_data['dec']
+
+all_data = np.vstack((ra_clusters, dec_clusters, lam_clusters, z_clusters, Delta_gridspline))
 
 pdb.set_trace()
+
+fname = './output/dr8_redmapper_Delta_6.3.1_lamgt5_12lam_5z_ky2.txt'
+np.savetxt(fname, all_data.transpose(), header = "#RA   DEC   Lambda    z    Delta")
+test = np.loadtxt(fname)
+

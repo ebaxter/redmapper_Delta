@@ -1,11 +1,9 @@
 # redmapper_Delta
 
-Questions:
+Usage:
 
-1. Using P_mem = pfree * p.  Is this correct?
+python compute_Delta.py cluster_file member_file output_file num_lam_bins num_z_bins
 
-2.  Simple grid?  Spline on grid?  Ungridded spline?
+Output:
 
-3.  What grid to use?
-
-4.  What output format?
+Will output <R_mem>, Delta, and other useful quantities to a fits file specifed by "output_file".
